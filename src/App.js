@@ -1,17 +1,31 @@
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
+import { LogIn } from './pages/LogIn';
+import { Home } from './pages/Home';
+import { AuthProvider, useAuth } from './components/LogIn/AuthContext';
+import PrivateRoute from './components/LogIn/PrivateRoute';
 
 function App() {
   return (
-    <div className="App">
-      <h1> hello </h1>
-      <h1> yo</h1>
-      <h2>kash </h2>
-      <p>eric sucks</p>
-
-    
-
-      
-    </div>
+    <AuthProvider>
+      <div className='app'>
+        <Router>
+          <Routes>
+            <Route path="/" element={<LogIn />} />
+            <Route 
+              path='/home' 
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              } 
+            />
+          </Routes>
+        </Router>
+      </div>
+    </AuthProvider>
   );
 }
 
